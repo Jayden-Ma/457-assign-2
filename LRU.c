@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#define MAX_PAGES 500
 
 // Structure to hold page information
 typedef struct {
