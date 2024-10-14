@@ -1,25 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-
-#define MAX_PAGES 500
-
-// Structure to hold page information
-typedef struct {
-    int page_number;
-    int dirty; // 0 or 1
-} Page;
-
-// Function to find if the page is present in the frame
-bool isPagePresent(Page frames[], int frame_count, Page page) {
-    for (int i = 0; i < frame_count; i++) {
-        if (frames[i].page_number == page.page_number) {  
-            return true;
-        }
-    }
-    return false;
-}
+#include "pageReplacement.h"
 
 // FIFO Page Replacement Algorithm
 // signature contains: a list of pages read from the input file, counter that counts the number of pages, frame count for number of frames available 
@@ -83,14 +64,14 @@ void FIFO(Page pages[], int count, int frame_count) {
     free(frames); // Free the frame memory
 }
 
-int main() {
+int mainFIFO(char *inputFile) {
     FILE *file;
     char line[256]; 
     Page *listOfPages = NULL; // Pointer for dynamic allocation
     int pageCount = 0;
 
     // Open CSV file for reading
-    file = fopen("Assignment 2 input file.csv", "r");
+    file = fopen(inputFile, "r");
     if (file == NULL) {
         perror("File not found, make sure input file is named: inputfile.txt");
         return 1;
