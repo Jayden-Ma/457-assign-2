@@ -4,10 +4,10 @@
 #include <string.h>
 #define MAX_PAGES 500
 
-// Structure to hold page information
+//Structure to hold page information
 typedef struct {
     int page_number;
-    int dirty; // 0 or 1
+    int dirty; 
 } Page;
 
 //Function to find if the page is in the frame
