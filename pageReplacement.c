@@ -239,56 +239,38 @@ void LRU(Page pages[], int count, int frame_count) {
     free(dirty_bits);
 }
 
-//Main function
+// Main function
 int main(int argc, char *argv[]) {
     // Check if the user has provided the correct number of arguments
-    if (argc != 3) {
-        fprintf(stderr, "Error: Please provide 2 arguments (page replacement algorithm and input file).\n");
-        return EXIT_FAILURE;
-    }
-
-    // Open the file for reading
-    FILE *file = fopen(argv[2], "r");
-    if (file == NULL) {
-        fprintf(stderr, "Error: Could not open file %s\n", argv[2]);
+    if (argc != 2) {
+        fprintf(stderr, "Error: Please provide 1 argument (page replacement algorithm).\n");
         return EXIT_FAILURE;
     }
 
     char buffer[256];
-
-    // Count the number of lines in the file
+    
+    // Count the number of lines in the input
     int lineCount = 0;
-    while (fgets(buffer, sizeof(buffer), file)) {
+    while (fgets(buffer, sizeof(buffer), stdin) != NULL) {
         lineCount++;
     }
 
     // Rewind the file pointer to read the data again
-    rewind(file);
-    
-    // Skip the header line again
-    if (fgets(buffer, sizeof(buffer), file) == NULL) {
-        fprintf(stderr, "Error: Could not read data lines\n");
-        fclose(file);
-        return EXIT_FAILURE;
-    }
+    rewind(stdin);
 
     // Allocate memory for the pages
     Page *pages = malloc(lineCount * sizeof(Page));
     if (pages == NULL) {
         fprintf(stderr, "Error: Memory allocation failed\n");
-        fclose(file);
         return EXIT_FAILURE;
     }
 
     // Read and store each Page
     int i = 0;
-    while (fgets(buffer, sizeof(buffer), file) != NULL && i < lineCount) {
+    while (fgets(buffer, sizeof(buffer), stdin) != NULL && i < lineCount) {
         sscanf(buffer, "%d,%d", &pages[i].page_number, &pages[i].dirty);
         i++;
     }
-
-    // Close the file after reading
-    fclose(file);
 
     // Print the header for output
     printf("+--------+--------------+-------------+\n");
@@ -300,14 +282,18 @@ int main(int argc, char *argv[]) {
         for (int i = 1; i < 101; i++) {
             FIFO(pages, lineCount, i);
         }
-    } else if (strcmp(argv[1], "Optimal") == 0){
+    } else if (strcmp(argv[1], "Optimal") == 0) {
         for (int i = 1; i < 101; i++) {
             Optimal(pages, lineCount, i);
         }
-    } else if (strcmp(argv[1], "LRU") == 0){
+    } else if (strcmp(argv[1], "LRU") == 0) {
         for (int i = 1; i < 101; i++) {
             LRU(pages, lineCount, i);
         }
+    } else {
+        fprintf(stderr, "Error: Invalid page replacement algorithm specified.\n");
+        free(pages);
+        return EXIT_FAILURE;
     }
 
     // Free the memory allocated for the pages
@@ -315,4 +301,3 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
 }
-    
