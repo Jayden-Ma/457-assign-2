@@ -233,6 +233,7 @@ void LRU(Page pages[], int count, int frame_count) {
     }
 
     printf("| %-6d | %-12d | %-11d |\n", frame_count, page_faults, writeBacks);
+    printf("+--------+--------------+-------------+\n");
 
     free(frames);
     free(access_time);
