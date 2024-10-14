@@ -243,7 +243,7 @@ void LRU(Page pages[], int count, int frame_count) {
 int main(int argc, char *argv[]) {
     // Check if the user has provided the correct number of arguments
     if (argc != 2) {
-        fprintf(stderr, "Error: Please provide 1 argument (page replacement algorithm).\n");
+        fprintf(stderr, "Error: Please provide 2 arguments (pageReplacementAlgorithm < inputFile).\n");
         return EXIT_FAILURE;
     }
 
