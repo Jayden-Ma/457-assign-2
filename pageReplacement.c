@@ -118,7 +118,7 @@ void FIFO(Page pages[], int count, int frame_count) {
     }
 
     // Print results for this iteration
-    printf("| %-6d | %-12d | %-11d |\n",frame_count,page_faults,writeBacks);    // Write backs not implemented yet.
+    printf("| %-6d | %-12d | %-11d |\n",frame_count,page_faults-1,writeBacks);    // Write backs not implemented yet.
 
     
     // print the last line
@@ -176,7 +176,7 @@ void Optimal(Page pages[], int count, int frame_count) {
     }
 
     // Print results for this iteration
-    printf("| %-6d | %-12d | %-11d |\n", frame_count, page_faults, writeBacks);
+    printf("| %-6d | %-12d | %-11d |\n", frame_count, page_faults-1, writeBacks);
     
     // print the last line
     printf("+--------+--------------+-------------+\n");
@@ -232,7 +232,7 @@ void LRU(Page pages[], int count, int frame_count) {
         current_time++;
     }
 
-    printf("| %-6d | %-12d | %-11d |\n", frame_count, page_faults, writeBacks);
+    printf("| %-6d | %-12d | %-11d |\n", frame_count, page_faults-1, writeBacks);
 
     free(frames);
     free(access_time);
@@ -282,7 +282,7 @@ int main(int argc, char *argv[]) {
         for (int i = 1; i < 101; i++) {
             FIFO(pages, lineCount, i);
         }
-    } else if (strcmp(argv[1], "Optimal") == 0) {
+    } else if (strcmp(argv[1], "OPT") == 0) {
         for (int i = 1; i < 101; i++) {
             Optimal(pages, lineCount, i);
         }
