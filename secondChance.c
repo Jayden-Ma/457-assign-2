@@ -1,18 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "pageReplacement.h"
 
-#define MAX_FRAMES 50
-
-typedef struct {
-    int page_number;
-    unsigned int ref_register;  //Reference register of n bits
-    int dirty;                  
-} Page;
-
-Page *frames;
-int num_frames = MAX_FRAMES;
-int write_back_count = 0;  //Count the number of write backs
 
 //function to find a page in the frame
 int find_page_in_frames(int page_number) {
@@ -146,14 +136,14 @@ void run_experiment_vary_m(Page *listOfPages, int num_pages) {
 
     printf("+--------+--------------+-----------------+\n");
 }
-int main() {
+int mainSecondChance(char *inputFile) {
     FILE *file;
     char line[256];
     Page *listOfPages = NULL;  // Pointer for dynamic allocation
     int pageCount = 0;
 
     // Open CSV file for reading
-    file = fopen("inputfile.txt", "r");
+    file = fopen(inputFile, "r");
     if (file == NULL) {
         perror("File not found, make sure input file is named: inputfile.txt");
         return 1;
