@@ -1,14 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
-#define MAX_PAGES 500
+#include "pageReplacement.h"
 
-//Structure to hold page information
-typedef struct {
-    int page_number;
-    int dirty; 
-} Page;
 
 //Function to find if the page is in the frame
 int findPageIndex(int *frames, int frame_count, int page) {
@@ -88,14 +81,14 @@ void LRU(Page pages[], int count, int frame_count) {
     free(dirty_bits);
 }
 
-int main() {
+int mainLRU(char *inputFile) {
     FILE *file;
     char line[256];
     Page *listOfPages = NULL; // Pointer for dynamic allocation
     int pageCount = 0;
 
     // Open CSV file for reading
-    file = fopen("inputfile.txt", "r");
+    file = fopen(inputFile, "r");
     if (file == NULL) {
         perror("File not found, make sure input file is named: inputfile.txt");
         return 1;
@@ -143,11 +136,14 @@ int main() {
     //Call LRU function for frame sizes 1 to 100
     for (int i = 1; i < 101; i++) {
         LRU(listOfPages, index, i);
+        printf("+--------+--------------+-------------+\n");
+
     }
+
 
     // Free the dynamically allocated memory
     free(listOfPages);
 
     return 0;
 }
-                                                                                                                                                                               17,1          Top
+                                                                                                                                                                           
