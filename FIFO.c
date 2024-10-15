@@ -61,7 +61,7 @@ void FIFO(Page pages[], int count, int frame_count) {
     printf("+--------+--------------+-------------+\n");
        
     
-    free(frames); // Free the frame memory
+    //free(frames); // Free the frame memory
 }
 
 int mainFIFO(char *inputFile) {
